@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Greg Hah — Freelance IT &amp; Web</title>
+<meta name="description" content="Friendly freelance IT support, website builds, networking, and cloud help. Real certs, real fixes, no jargon. Based in your corner." />
+<style>
+  :root{
+    --bg:#0b0f17;
+    --bg-soft:#111726;
+    --card:#141b2d;
+    --line:#222c44;
+    --txt:#e8edf7;
+    --muted:#9aa7c2;
+    --accent:#4f9dff;
+    --accent-2:#22d3a6;
+    --radius:16px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--txt);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .accent{color:var(--accent)}
+  .accent2{color:var(--accent-2)}
+
+  /* nav */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,15,23,.78);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;font-size:20px;letter-spacing:-.5px}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;font-size:15px;color:var(--muted)}
+  .nav-links a:hover{color:var(--txt)}
+  .nav-cta{
+    background:var(--accent);color:#06101f;font-weight:700;
+    padding:9px 18px;border-radius:10px;font-size:14px;
+  }
+  .nav-cta:hover{filter:brightness(1.08)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{padding:96px 0 80px;position:relative;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;top:-200px;right:-150px;width:520px;height:520px;
+    background:radial-gradient(circle,rgba(79,157,255,.18),transparent 70%);
+    filter:blur(20px);z-index:0;
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{
+    display:inline-block;font-size:13px;font-weight:600;color:var(--accent-2);
+    background:rgba(34,211,166,.1);border:1px solid rgba(34,211,166,.25);
+    padding:6px 14px;border-radius:999px;margin-bottom:22px;
+  }
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:-1.5px;font-weight:800;max-width:14ch}
+  .hero p.lead{color:var(--muted);font-size:clamp(17px,2.2vw,20px);margin-top:22px;max-width:54ch}
+  .hero-cta{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
+  .btn{
+    padding:14px 26px;border-radius:12px;font-weight:700;font-size:15px;
+    transition:transform .12s ease,filter .12s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:var(--accent);color:#06101f}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{border:1px solid var(--line);color:var(--txt)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* sections */
+  section{padding:72px 0}
+  .section-head{margin-bottom:44px}
+  .section-head h2{font-size:clamp(26px,4vw,38px);letter-spacing:-1px;font-weight:800}
+  .section-head p{color:var(--muted);margin-top:10px;max-width:56ch}
+  .alt{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+  /* services grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;transition:transform .15s ease,border-color .15s ease;
+  }
+  .card:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .card .ico{font-size:26px;margin-bottom:14px}
+  .card h3{font-size:18px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:14.5px}
+  .card .price{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;color:var(--accent-2)}
+
+  /* work */
+  .work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .work-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:transform .15s ease,border-color .15s ease;
+  }
+  .work-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .work-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:40px;
+    background:linear-gradient(135deg,#1b2640,#0e1626);border-bottom:1px solid var(--line)}
+  .work-body{padding:22px}
+  .work-body h3{font-size:17px;margin-bottom:6px}
+  .work-body p{color:var(--muted);font-size:14px}
+  .tag{display:inline-block;font-size:11px;font-weight:600;color:var(--accent);
+    background:rgba(79,157,255,.1);padding:4px 10px;border-radius:999px;margin-top:12px}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr}}
+  .about p{color:var(--muted);font-size:16px;margin-bottom:16px}
+  .creds{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .creds h4{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:16px}
+  .creds ul{list-style:none}
+  .creds li{padding:9px 0;border-bottom:1px solid var(--line);font-size:15px;display:flex;gap:10px;align-items:center}
+  .creds li:last-child{border-bottom:none}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent-2);flex-shrink:0}
+
+  /* contact */
+  .contact{text-align:center}
+  .contact h2{font-size:clamp(28px,4.5vw,42px);letter-spacing:-1px;font-weight:800}
+  .contact p{color:var(--muted);margin:16px auto 32px;max-width:48ch}
+
+  footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:14px}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">greg<span>hah</span></a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="#contact" class="nav-cta">Hire me</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Freelance IT &amp; Web · Available now</span>
+      <h1>Tech problems, <span class="accent">done</span>.</h1>
+      <p class="lead">Hey, I'm Greg. I build clean websites and fix the tech headaches that slow people and small businesses down — networks, computers, cloud, the works. Certified, friendly, and no jargon.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Get a free quote</a>
+        <a href="#work" class="btn btn-ghost">See my work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What I can do for you</h2>
+        <p>Straightforward help, fair pricing. If it plugs in or connects to the internet, I can probably sort it.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="ico">🌐</div>
+          <h3>Website builds</h3>
+          <p>Clean, fast, mobile-friendly sites for small businesses and personal brands. Live and looking sharp.</p>
+          <span class="price">From $100</span>
+        </div>
+        <div class="card">
+          <div class="ico">🛠️</div>
+          <h3>IT support &amp; repair</h3>
+          <p>Slow computers, setup, malware, "it just stopped working." Remote or on-site troubleshooting that actually fixes it.</p>
+          <span class="price">Per visit / hourly</span>
+        </div>
+        <div class="card">
+          <div class="ico">📶</div>
+          <h3>Networking &amp; Wi-Fi</h3>
+          <p>Router and firewall setup, dead-zone fixes, secure business networks done right the first time.</p>
+          <span class="price">Quote per job</span>
+        </div>
+        <div class="card">
+          <div class="ico">☁️</div>
+          <h3>Cloud &amp; Microsoft 365</h3>
+          <p>Azure, OneDrive, SharePoint, backups and migrations. Get your data safe and synced across devices.</p>
+          <span class="price">Quote per job</span>
+        </div>
+        <div class="card">
+          <div class="ico">⚙️</div>
+          <h3>Automation</h3>
+          <p>Scripts and tools that take the repetitive busywork off your plate so you can focus on the real stuff.</p>
+          <span class="price">Quote per job</span>
+        </div>
+        <div class="card">
+          <div class="ico">🔐</div>
+          <h3>Security checkups</h3>
+          <p>Lock down accounts, set up backups, patch the gaps. Peace of mind without the enterprise price tag.</p>
+          <span class="price">Flat rate</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What I help with</h2>
+        <p>A snapshot of the kinds of projects I take on for people and small businesses.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-card">
+          <div class="work-thumb">🖥️</div>
+          <div class="work-body">
+            <h3>Small business website</h3>
+            <p>Fast, mobile-ready sites for local service businesses — built, launched, and easy to update.</p>
+            <span class="tag">Web build</span>
+          </div>
+        </div>
+        <div class="work-card">
+          <div class="work-thumb">📡</div>
+          <div class="work-body">
+            <h3>Office network setup</h3>
+            <p>Secure Wi-Fi, firewall, and file sharing configured to run reliably across a whole office.</p>
+            <span class="tag">Networking</span>
+          </div>
+        </div>
+        <div class="work-card">
+          <div class="work-thumb">☁️</div>
+          <div class="work-body">
+            <h3>Cloud migration</h3>
+            <p>Moves to Microsoft 365 with backups and synced devices — your data safe, with zero downtime.</p>
+            <span class="tag">Cloud</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="alt">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about">
+          <div class="section-head" style="margin-bottom:24px">
+            <h2>About me</h2>
+          </div>
+          <p>I'm Greg — an IT pro who genuinely likes solving tech problems and explaining things without the jargon. By day I work in IT support and managed services; on the side I help people and small businesses get their tech working the way it should.</p>
+          <p>I'm certified, always studying, and big on doing things right rather than just "good enough." When you hire me, you get someone who treats your setup like it's his own.</p>
+          <p>Got something broken, slow, or not built yet? Let's fix it.</p>
+        </div>
+        <div class="creds">
+          <h4>Certs &amp; skills</h4>
+          <ul>
+            <li><span class="dot"></span>Cisco CCNA Certified</li>
+            <li><span class="dot"></span>Microsoft Azure (AZ-104, in progress)</li>
+            <li><span class="dot"></span>Networking &amp; firewalls</li>
+            <li><span class="dot"></span>Windows / Microsoft 365 admin</li>
+            <li><span class="dot"></span>PowerShell &amp; automation</li>
+            <li><span class="dot"></span>Web development</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <h2>Let's get it <span class="accent2">done</span>.</h2>
+      <p>Tell me what you need and I'll get back to you with a free, no-pressure quote — usually same day.</p>
+      <a href="mailto:gregory.zipprich@gmail.com?subject=Project%20inquiry%20via%20greghah.com" class="btn btn-primary">Email me</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr"></span> Greg Hah · greghah.com</span>
+    <span>Freelance IT &amp; Web</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
