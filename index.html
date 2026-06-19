@@ -41,7 +41,6 @@
   }
   nav{display:flex;align-items:center;justify-content:space-between;height:64px}
   .logo{font-weight:800;font-size:20px;letter-spacing:-.5px}
-  .logo span{color:var(--accent)}
   .nav-links{display:flex;gap:28px;font-size:15px;color:var(--muted)}
   .nav-links a:hover{color:var(--txt)}
   .nav-cta{
@@ -129,44 +128,24 @@
   .contact{text-align:center}
   .contact h2{font-size:clamp(28px,4.5vw,42px);letter-spacing:-1px;font-weight:800}
   .contact p{color:var(--muted);margin:16px auto 32px;max-width:54ch}
-  .contact-layout{
-    display:grid;grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr);
-    gap:24px;align-items:start;text-align:left
-  }
-  .contact-form,.contact-links{
+  .contact-card{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    max-width:440px;margin:0 auto;text-align:left;
     background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:24px
+    padding:14px 16px
   }
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .field{display:flex;flex-direction:column;gap:8px}
-  .field-full{grid-column:1 / -1}
-  .field label{font-size:13px;font-weight:700;color:var(--txt)}
-  .field input,.field textarea,.field select{
-    width:100%;border:1px solid var(--line);border-radius:10px;
-    background:#0f1524;color:var(--txt);font:inherit;padding:12px 14px;
-    outline:none
+  .contact-number{font-size:16px;font-weight:700;white-space:nowrap}
+  .contact-actions{display:flex;gap:8px}
+  .contact-action{
+    border:1px solid var(--line);border-radius:8px;padding:7px 10px;
+    background:#0f1524;color:var(--txt);font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.5px
   }
-  .field textarea{min-height:140px;resize:vertical}
-  .field input:focus,.field textarea:focus,.field select:focus{
-    border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,157,255,.16)
-  }
-  .honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-  .form-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
-  .form-status{margin:0;color:var(--muted);font-size:14px}
-  .form-status[data-state="success"]{color:var(--accent-2)}
-  .form-status[data-state="error"]{color:#ff9a9a}
-  .contact-links{display:grid;gap:12px}
-  .contact-link{
-    display:flex;justify-content:space-between;align-items:center;gap:16px;
-    border:1px solid var(--line);border-radius:12px;padding:14px 16px;
-    background:#0f1524;color:var(--txt)
-  }
-  .contact-link:hover{border-color:var(--accent);color:var(--accent)}
-  .contact-link span{color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-  .contact-link strong{font-size:15px;text-align:right}
-  @media(max-width:760px){
-    .contact-layout{grid-template-columns:1fr}
-    .form-grid{grid-template-columns:1fr}
+  .contact-action:hover{border-color:var(--accent);color:var(--accent)}
+  @media(max-width:520px){
+    .contact-card{align-items:stretch;flex-direction:column;text-align:center}
+    .contact-actions{display:grid;grid-template-columns:1fr 1fr}
+    .contact-action{text-align:center}
   }
 
   footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:14px}
@@ -179,7 +158,7 @@
 <header>
   <div class="wrap">
     <nav>
-      <a href="#top" class="logo">greg<span>hah</span></a>
+      <a href="#top" class="logo">greghah</a>
       <div class="nav-links">
         <a href="#services">Services</a>
         <a href="#work">Work</a>
@@ -307,7 +286,7 @@
           <h4>Certs &amp; skills</h4>
           <ul>
             <li><span class="dot"></span>Cisco CCNA Certified</li>
-            <li><span class="dot"></span>Microsoft Azure (AZ-104, in progress)</li>
+            <li><span class="dot"></span>Microsoft Azure (AZ-104)</li>
             <li><span class="dot"></span>Networking &amp; firewalls</li>
             <li><span class="dot"></span>Windows / Microsoft 365 admin</li>
             <li><span class="dot"></span>PowerShell &amp; automation</li>
@@ -322,45 +301,12 @@
   <section id="contact" class="contact">
     <div class="wrap">
       <h2>Let's get it <span class="accent2">done</span>.</h2>
-      <p>Tell me what you need and I'll get back to you with a free, no-pressure quote. Call, text, or send the short intake form.</p>
-      <div class="contact-layout">
-        <form class="contact-form" id="contact-form" action="/api/contact" method="post" aria-describedby="contact-status">
-          <div class="form-grid">
-            <div class="field">
-              <label for="contact-name">Name</label>
-              <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required />
-            </div>
-            <div class="field">
-              <label for="contact-method">Best email or phone</label>
-              <input id="contact-method" name="contact" type="text" autocomplete="email" maxlength="180" required />
-            </div>
-            <div class="field field-full">
-              <label for="contact-need">What do you need help with?</label>
-              <textarea id="contact-need" name="need" maxlength="2000" required></textarea>
-            </div>
-            <div class="field field-full">
-              <label for="contact-timing">Timing</label>
-              <select id="contact-timing" name="timing">
-                <option value="">Choose timing</option>
-                <option value="ASAP">ASAP</option>
-                <option value="This week">This week</option>
-                <option value="Just exploring">Just exploring</option>
-              </select>
-            </div>
-            <div class="honeypot" aria-hidden="true">
-              <label for="contact-company">Company</label>
-              <input id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off" />
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Send request</button>
-            <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
-          </div>
-        </form>
-        <div class="contact-links" aria-label="Contact options">
-          <a class="contact-link" href="tel:+15853330388"><span>Call</span><strong>(585) 333-0388</strong></a>
-          <a class="contact-link" href="sms:+15853330388"><span>Text</span><strong>Text me</strong></a>
-          <a class="contact-link" href="/card"><span>Save</span><strong>Contact card</strong></a>
+      <p>Call or text me and tell me what you need.</p>
+      <div class="contact-card" aria-label="Contact Greg at (585) 333-0388">
+        <strong class="contact-number">(585) 333-0388</strong>
+        <div class="contact-actions">
+          <a class="contact-action" href="tel:+15853330388">Call</a>
+          <a class="contact-action" href="sms:+15853330388">Text</a>
         </div>
       </div>
     </div>
@@ -371,60 +317,12 @@
 <footer>
   <div class="wrap foot">
     <span>© <span id="yr"></span> Greg Hah · greghah.com</span>
-    <span><a href="/card">Download contact card</a> · Freelance IT &amp; Web</span>
+    <span>Freelance IT &amp; Web</span>
   </div>
 </footer>
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
-
-  const contactForm = document.getElementById('contact-form');
-  const contactStatus = document.getElementById('contact-status');
-
-  function setContactStatus(message, state) {
-    contactStatus.textContent = message;
-    contactStatus.dataset.state = state || '';
-  }
-
-  contactForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    if (!contactForm.reportValidity()) {
-      return;
-    }
-
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalLabel = submitButton.textContent;
-    const formData = Object.fromEntries(new FormData(contactForm).entries());
-
-    submitButton.disabled = true;
-    submitButton.textContent = 'Sending...';
-    setContactStatus('', '');
-
-    try {
-      const response = await fetch(contactForm.action, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok || !result.ok) {
-        throw new Error('Contact request failed');
-      }
-
-      contactForm.reset();
-      setContactStatus("Got it — I'll reach out.", 'success');
-    } catch (error) {
-      setContactStatus("Couldn't send — call or text me instead.", 'error');
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = originalLabel;
-    }
-  });
 </script>
 
 </body>
