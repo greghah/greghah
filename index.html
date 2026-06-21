@@ -389,8 +389,13 @@ h1 {
   margin-bottom:14px;
   position:relative; overflow:hidden;
 }
+.loc-map::after {
+  content:''; position:absolute; bottom:0; left:0; right:0;
+  height:30px; background:#0c1a2e;
+  pointer-events:none; z-index:2;
+}
 .loc-map iframe {
-  display:block; width:100%; height:calc(100% + 44px); min-height:220px; border:0;
+  display:block; width:100%; height:calc(100% + 30px); min-height:206px; border:0;
   filter:saturate(.7) brightness(.78) contrast(1.12);
   transition:filter .25s var(--ease), transform .35s var(--spring);
 }
