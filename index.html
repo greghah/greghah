@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Greg Hah — IT Engineer</title>
-<meta name="description" content="Greg Hah. IT engineer, CCNA certified, cloud-focused. MSP tech by day, freelancer by side. Rochester, NY." />
+<title>greghah — Infrastructure Engineer</title>
+<meta name="description" content="greghah is a Rochester-based infrastructure engineer working across 200+ client environments, building with cloud, networking, automation, open source, and AI." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -42,7 +42,7 @@
    RESET
 ═══════════════════════════════════════════════════════ */
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
-html { scroll-behavior:smooth }
+html { scroll-behavior:smooth; max-width:100%; overflow-x:clip }
 body {
   font-family:'Plus Jakarta Sans',system-ui,sans-serif;
   background:var(--bg); color:var(--txt);
@@ -52,6 +52,9 @@ body {
 }
 a { color:inherit; text-decoration:none }
 button { font-family:inherit }
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible {
+  outline:2px solid var(--teal); outline-offset:3px;
+}
 
 /* ═══════════════════════════════════════════════════════
    GLOBAL BG FX
@@ -70,6 +73,23 @@ button { font-family:inherit }
   -webkit-mask:radial-gradient(ellipse 100% 70% at 50% 20%, black 30%, transparent 100%);
   mask:radial-gradient(ellipse 100% 70% at 50% 20%, black 30%, transparent 100%);
 }
+
+/* Network field — one continuous map of the systems behind the work */
+.network-field {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  opacity:.27; overflow:hidden; contain:strict;
+  transform:translate3d(0,calc(var(--scroll-p, 0) * -46px),0);
+  transition:transform .12s linear;
+}
+.network-field svg { width:100%; height:115%; min-height:760px }
+.net-route {
+  fill:none; stroke:rgba(79,157,255,.24); stroke-width:1;
+  stroke-dasharray:7 12; stroke-dashoffset:calc(var(--scroll-p, 0) * -220);
+}
+.net-route.hot { stroke:rgba(34,211,166,.34); stroke-width:1.2 }
+.net-node { fill:var(--bg); stroke:rgba(79,157,255,.48); stroke-width:1.2 }
+.net-node.core { fill:var(--teal); stroke:rgba(34,211,166,.6); filter:drop-shadow(0 0 9px rgba(34,211,166,.7)) }
+.net-label { fill:rgba(168,188,218,.32); font:500 9px 'JetBrains Mono',monospace; letter-spacing:.16em }
 
 /* Cursor glow */
 #cg {
@@ -183,9 +203,14 @@ h1 {
   font-weight:800; letter-spacing:-3.5px; line-height:1.0;
   margin-bottom:22px;
 }
+.identity-kicker {
+  display:block; color:var(--teal); font:600 12px 'JetBrains Mono',monospace;
+  letter-spacing:.18em; text-transform:uppercase; margin-bottom:10px;
+}
 .h1-white { display:block; color:var(--txt) }
 .h1-grad  {
   display:block;
+  font-size:clamp(40px,5.4vw,64px); letter-spacing:-2.8px;
   background:linear-gradient(110deg, #5eaaff 0%, #a78bfa 42%, #22d3a6 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
   background-clip:text; background-size:200% 100%;
@@ -278,6 +303,11 @@ h1 {
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 @media(max-width:880px) { .terminal { max-width:460px } }
+@media(max-width:520px) {
+  h1 { font-size:clamp(46px,15vw,64px); letter-spacing:-2.5px }
+  .h1-grad { font-size:clamp(34px,10.5vw,48px); letter-spacing:-1.8px }
+  .stat { padding:11px 14px }
+}
 
 /* ═══════════════════════════════════════════════════════
    MARQUEE
@@ -353,17 +383,20 @@ h1 {
 
 /* location card */
 .loc-map {
-  flex:1; min-height:108px; border-radius:10px;
-  background:linear-gradient(135deg, #0c1a2e, #091120);
+  flex:1; min-height:176px; border-radius:10px;
+  background:#0c1a2e;
   border:1px solid var(--bdr);
-  display:flex; align-items:center; justify-content:center;
-  font-size:26px; margin-bottom:14px;
+  margin-bottom:14px;
   position:relative; overflow:hidden;
 }
-.loc-map::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(circle at 65% 50%, rgba(34,211,166,0.1), transparent 55%);
+.loc-map iframe {
+  display:block; width:100%; height:100%; min-height:176px; border:0;
+  filter:saturate(.7) brightness(.78) contrast(1.12);
+  transition:filter .25s var(--ease), transform .35s var(--spring);
 }
+.loc-map:hover iframe,.loc-map:focus-within iframe { filter:saturate(.9) brightness(.94) contrast(1.05); transform:scale(1.015) }
+.map-link { color:var(--blue); font-size:12px; margin-top:7px; display:inline-block }
+.map-link:hover { color:var(--teal) }
 .loc-name { font-size:16px; font-weight:700 }
 .loc-sub  { font-size:13px; color:var(--muted); margin-top:3px }
 
@@ -394,6 +427,12 @@ h1 {
   content:''; position:absolute; left:19px; top:20px; bottom:20px;
   width:1px;
   background:linear-gradient(to bottom, var(--bdr) 0%, var(--bdr) 85%, transparent);
+}
+.timeline::after {
+  content:''; position:absolute; left:19px; top:20px; width:1px;
+  height:calc(var(--timeline-p, 0) * (100% - 40px));
+  background:linear-gradient(var(--teal),var(--blue));
+  box-shadow:0 0 12px rgba(79,157,255,.5);
 }
 .tl-item { display:flex; gap:24px; margin-bottom:44px; position:relative }
 .tl-item:last-child { margin-bottom:0 }
@@ -484,7 +523,7 @@ h1 {
   background-clip:text; margin-bottom:14px;
 }
 
-.cc-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:40px 0 0 }
+.cc-grid { display:grid; grid-template-columns:1fr; gap:12px; margin:40px auto 0; max-width:360px }
 @media(max-width:480px) { .cc-grid { grid-template-columns:1fr } }
 
 .cc {
@@ -574,12 +613,34 @@ footer {
 
 /* honeypot */
 .hp { position:absolute; left:-9999px; opacity:0; pointer-events:none }
+
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto }
+  *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important }
+  .network-field { transform:none }
+}
 </style>
 </head>
 
 <body>
 <div class="bg-orbs" aria-hidden="true"></div>
 <div class="bg-grid"  aria-hidden="true"></div>
+<div class="network-field" aria-hidden="true">
+  <svg viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice">
+    <path class="net-route" d="M-40 160 C180 80 300 280 520 205 S870 70 1060 235 1320 350 1490 185" />
+    <path class="net-route hot" d="M90 835 C260 690 390 760 520 610 S760 430 905 525 1175 715 1470 570" />
+    <path class="net-route" d="M130 25 C250 250 165 410 365 500 S680 670 655 970" />
+    <path class="net-route" d="M1290 -30 C1185 160 1255 330 1080 405 S820 700 910 1030" />
+    <path class="net-route" d="M-20 565 C210 510 300 365 515 430 S820 400 1040 335 1300 425 1490 390" />
+    <circle class="net-node" cx="130" cy="150" r="5"/><circle class="net-node" cx="365" cy="500" r="5"/>
+    <circle class="net-node" cx="520" cy="205" r="5"/><circle class="net-node core" cx="905" cy="525" r="6"/>
+    <circle class="net-node" cx="1080" cy="405" r="5"/><circle class="net-node" cx="1290" cy="630" r="5"/>
+    <circle class="net-node" cx="520" cy="610" r="5"/><circle class="net-node" cx="655" cy="850" r="5"/>
+    <text class="net-label" x="922" y="510">ROC / CORE</text>
+    <text class="net-label" x="535" y="596">AZURE</text>
+    <text class="net-label" x="1095" y="390">EDGE</text>
+  </svg>
+</div>
 <div id="cg"          aria-hidden="true"></div>
 
 <!-- ════════════════════════════════════════════
@@ -615,12 +676,13 @@ footer {
         </div>
 
         <h1 class="r0 d1">
-          <span class="h1-white">Greg Hah.</span>
-          <span class="h1-grad">IT Engineer.</span>
+          <span class="identity-kicker">Online as greghah</span>
+          <span class="h1-white">greghah.</span>
+          <span class="h1-grad">Infrastructure Engineer.</span>
         </h1>
 
         <p class="hero-bio r0 d2">
-          21-year-old IT pro from Rochester, NY. CCNA certified, cloud-focused, and building fast. MSP helpdesk by day — websites, networks, and Azure on the side.
+          21-year-old engineer from Rochester, NY, working where infrastructure, cloud, networking, automation, and AI meet. CCNA certified, endlessly curious, and always building.
         </p>
 
         <div class="stat-bar r0 d3">
@@ -633,8 +695,8 @@ footer {
             <span class="stat-k">In Progress</span>
           </div>
           <div class="stat">
-            <span class="stat-v">MSP</span>
-            <span class="stat-k">Day job</span>
+            <span class="stat-v">200+</span>
+            <span class="stat-k">Client environments</span>
           </div>
           <div class="stat">
             <span class="stat-v">ROC</span>
@@ -660,14 +722,14 @@ footer {
           <div class="tl"><span class="tp">greg@greghah</span><span class="to">&nbsp;~&nbsp;</span><span class="tc">$ whoami</span></div>
           <div class="tsp"></div>
           <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">name</span><span class="tv">Greg Hah</span></span></div>
-          <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">role</span><span class="tv">L1/L2 Tech · Info Advantage</span></span></div>
+          <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">role</span><span class="tv">Infrastructure · Info Advantage</span></span></div>
           <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">goal</span><span class="tv b">Cloud Engineer (Azure)</span></span></div>
           <div class="tsp"></div>
           <div class="tl"><span class="tp">greg@greghah</span><span class="to">&nbsp;~&nbsp;</span><span class="tc">$ status</span></div>
           <div class="tsp"></div>
           <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">ccna</span><span class="tv g">✓ earned</span></span></div>
           <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">az-104</span><span class="tv y">⟳ studying</span></span></div>
-          <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">wgu</span><span class="tv b">→ sept 2025</span></span></div>
+          <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">degree</span><span class="tv b">⟳ networking + cloud</span></span></div>
           <div class="tl"><span class="to">&nbsp;&nbsp;<span class="tk">avail</span><span class="tv g">✓ open</span></span></div>
           <div class="tsp"></div>
           <div class="tl"><span class="tp">greg@greghah</span><span class="to">&nbsp;~&nbsp;</span><span class="tc">$&nbsp;<span class="tcursor"></span></span></div>
@@ -694,21 +756,29 @@ footer {
   <div class="wrap">
     <div class="s-label r0">About</div>
     <h2 class="s-title r0 d1">Who I am</h2>
-    <p class="s-body r0 d2">Systematic thinker. IT engineer. BJJ practitioner. Same approach to all three: understand the system, find the gap, close it.</p>
+    <p class="s-body r0 d2">Systematic thinker. Infrastructure engineer. BJJ practitioner. Technology is the through-line: understand the system, find the gap, make it stronger.</p>
 
     <div class="bento">
       <div class="bc bc-bio r0">
         <div class="bc-label">Background</div>
-        <p>I'm an <strong>L1/L2 technician at Info Advantage</strong>, an MSP in Rochester running helpdesk across 10+ client tenants every day — firewalls, Entra ID, Intune, backups, EDR triage. Real environments. Real stakes.</p>
-        <p>Long-term I'm targeting <strong>cloud engineering with an Azure focus</strong>. I'm mid-way through AZ-104, starting a B.S. in IT at WGU in September, and stacking every cert and rep toward that role deliberately.</p>
-        <p>On the side I run <strong>easydonetech</strong> — freelance IT and web builds for people who need reliability without the enterprise overhead.</p>
+        <p>At <strong>Info Advantage</strong>, I help manage technology across <strong>200+ client environments</strong>—identity, endpoints, firewalls, backups, security tooling, Microsoft 365, and the infrastructure connecting it all. The work is broad, fast-moving, and grounded in real production systems.</p>
+        <p>I'm earning a <strong>B.S. in Networking &amp; Cloud Computing — Azure</strong> at WGU while working toward AZ-104. Outside work, I build with AI, explore open-source projects, and look for meaningful places to contribute.</p>
+        <p>I also run <strong>Greg's Tech Services</strong>, building reliable websites, networks, and practical technology solutions for people who want the work done clearly and correctly.</p>
       </div>
 
       <div class="bc bc-loc r0 d1">
         <div class="bc-label">Location</div>
-        <div class="loc-map">📍</div>
+        <div class="loc-map">
+          <iframe
+            title="Interactive map of Rochester, New York"
+            loading="lazy"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-77.75%2C43.08%2C-77.47%2C43.23&amp;layer=mapnik&amp;marker=43.1566%2C-77.6088"
+            referrerpolicy="no-referrer">
+          </iframe>
+        </div>
         <div class="loc-name">Rochester, NY</div>
         <div class="loc-sub">Open to relocating anywhere in the US</div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Rochester%2C%20NY" target="_blank" rel="noopener">Explore the map ↗</a>
       </div>
 
       <div class="bc bc-c1 r0 d2">
@@ -732,9 +802,9 @@ footer {
       <div class="bc bc-c3 r0 d4">
         <div class="cert-inner">
           <div class="cert-ico">🎓</div>
-          <div class="cert-name">B.S. IT</div>
-          <div class="cert-org">WGU · Starts Sept 2025</div>
-          <span class="badge badge-b">→ Incoming</span>
+          <div class="cert-name">B.S. Networking &amp; Cloud (Azure)</div>
+          <div class="cert-org">Western Governors University</div>
+          <span class="badge badge-b">⟳ In Progress</span>
         </div>
       </div>
     </div>
@@ -755,13 +825,13 @@ footer {
         <div class="tl-body">
           <div class="tl-head">
             <div>
-              <div class="tl-title">L1/L2 Technician</div>
+              <div class="tl-title">L1/L2 Technician · Infrastructure Operations</div>
               <div class="tl-co">Info Advantage · MSP, Rochester NY</div>
             </div>
             <span class="tl-date">2024 – Present</span>
           </div>
           <div class="tl-desc">
-            Multi-client helpdesk across 10+ tenants. Daily work spans identity management (Entra ID, Intune), firewall config (SonicWall, FortiGate), backup monitoring (Veeam, Acronis, Datto), EDR triage (Datto EDR, RocketCyber), and escalation support for senior engineers.
+            Manage and support technology across 200+ client environments, spanning identity, endpoints, firewalls, Microsoft 365, backup platforms, EDR, and network troubleshooting. I also build AI-assisted automations with PowerShell, Python, and scripting to eliminate repetitive workflows—delivering up to 200% productivity gains on targeted processes.
           </div>
           <div class="tl-tags">
             <span class="tl-tag">ConnectWise</span>
@@ -771,18 +841,43 @@ footer {
             <span class="tl-tag">SonicWall</span>
             <span class="tl-tag">FortiGate</span>
             <span class="tl-tag">PowerShell</span>
+            <span class="tl-tag">Python</span>
+            <span class="tl-tag">AI Automation</span>
             <span class="tl-tag">Microsoft 365</span>
           </div>
         </div>
       </div>
 
       <div class="tl-item r0 d3">
+        <div class="tl-node">🌐</div>
+        <div class="tl-body">
+          <div class="tl-head">
+            <div>
+              <div class="tl-title">Network Operations Technician</div>
+              <div class="tl-co">EWASTE+ · Rochester, NY</div>
+            </div>
+            <span class="tl-date">Prior role</span>
+          </div>
+          <div class="tl-desc">
+            Supported core network operations by maintaining and expanding internal Cisco infrastructure, extending network capacity for growing teams, and troubleshooting connectivity and hardware faults across the site. Kept the network stable while building out the infrastructure needed for daily operations.
+          </div>
+          <div class="tl-tags">
+            <span class="tl-tag">Cisco Networking</span>
+            <span class="tl-tag">Network Operations</span>
+            <span class="tl-tag">Infrastructure Expansion</span>
+            <span class="tl-tag">Troubleshooting</span>
+            <span class="tl-tag">Hardware</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item r0 d4">
         <div class="tl-node">💻</div>
         <div class="tl-body">
           <div class="tl-head">
             <div>
               <div class="tl-title">Freelance IT &amp; Web</div>
-              <div class="tl-co">easydonetech · Self-employed</div>
+              <div class="tl-co">Greg's Tech Services · Self-employed</div>
             </div>
             <span class="tl-date">2023 – Present</span>
           </div>
@@ -820,8 +915,8 @@ footer {
       </div>
       <div class="svc-card r0 d2">
         <div class="svc-ico">🛠️</div>
-        <div class="svc-name">IT Support &amp; Repair</div>
-        <div class="svc-desc">Slow computers, mystery errors, "it just stopped working." Remote or on-site troubleshooting that finds the root cause.</div>
+        <div class="svc-name">Systems Troubleshooting</div>
+        <div class="svc-desc">Workstations, business systems, and stubborn technical failures. Remote or on-site troubleshooting that finds the root cause.</div>
         <span class="svc-price">Hourly / per visit</span>
       </div>
       <div class="svc-card r0 d3">
@@ -869,13 +964,6 @@ footer {
           <div class="cc-btns">
             <a class="cc-btn" href="tel:+15853330388">Call</a>
             <a class="cc-btn" href="sms:+15853330388">Text</a>
-          </div>
-        </div>
-        <div class="cc">
-          <div class="cc-label">Digital Card</div>
-          <div class="cc-value">greghah.com/card</div>
-          <div class="cc-btns">
-            <a class="cc-btn" href="/card">Save Contact</a>
           </div>
         </div>
       </div>
@@ -926,7 +1014,6 @@ footer {
     <span>© <span id="yr"></span> Greg Hah · greghah.com</span>
     <div class="foot-links">
       <a href="tel:+15853330388">(585) 333-0388</a>
-      <a href="/card">vCard</a>
     </div>
     <span>Built with intention</span>
   </div>
@@ -958,13 +1045,40 @@ document.querySelectorAll('.r0').forEach(el => {
   else io.observe(el);
 });
 
+/* Scroll-linked network field and experience path */
+const root = document.documentElement;
+const timeline = document.querySelector('.timeline');
+let scrollTicking = false;
+
+function updateScrollStory() {
+  const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  root.style.setProperty('--scroll-p', (scrollY / max).toFixed(4));
+
+  if (timeline) {
+    const rect = timeline.getBoundingClientRect();
+    const start = innerHeight * .78;
+    const progress = Math.max(0, Math.min(1, (start - rect.top) / Math.max(1, rect.height)));
+    timeline.style.setProperty('--timeline-p', progress.toFixed(4));
+  }
+  scrollTicking = false;
+}
+
+addEventListener('scroll', () => {
+  if (!scrollTicking) {
+    requestAnimationFrame(updateScrollStory);
+    scrollTicking = true;
+  }
+}, { passive:true });
+updateScrollStory();
+
 /* marquee */
 const SKILLS = [
   ['🌐','Cisco CCNA'],['☁️','Microsoft Azure'],['🔑','Entra ID'],
   ['📱','Intune / MDM'],['⚡','PowerShell'],['🎫','ConnectWise'],
   ['🖥️','Datto RMM'],['🔥','SonicWall'],['🛡️','FortiGate'],
   ['📧','Microsoft 365'],['🧡','Cloudflare'],['🗂️','Active Directory'],
-  ['🎨','HTML / CSS / JS'],['💾','Veeam / Acronis'],['🔒','VPN / Zero Trust'],['🛠️','IT Support'],
+  ['🎨','HTML / CSS / JS'],['💾','Veeam / Acronis'],['🔒','VPN / Zero Trust'],
+  ['🤖','Applied AI'],['⌁','Open Source'],['♻️','Network Operations'],
 ];
 const mq = document.getElementById('mqEl');
 [...SKILLS, ...SKILLS].forEach(([ico, label]) => {
